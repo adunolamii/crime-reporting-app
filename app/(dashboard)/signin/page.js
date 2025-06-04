@@ -1,9 +1,9 @@
 
 'use client';
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-// import Header from '../Header';
+import Header from '../Header';
+import Welcome from '../Welcome'
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -39,7 +39,7 @@ export default function SignIn() {
 
   return (
     <div>
-      {/* <Header/> */}
+      <Header/>
     <div className="bg-white p-8 rounded-lg shadow-lg w-full m-auto max-w-sm">
       <h2 className="text-2xl font-semibold text-center mb-6">Sign In</h2>
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}

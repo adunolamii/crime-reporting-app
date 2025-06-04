@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import React from 'react'
-// import Header from '../Header';
+import Header from '../Header';
 
 const page = () => {
   const [name, setName] = useState('');
@@ -47,7 +47,7 @@ const page = () => {
   
   return (
     <div>
-      {/* <Header/> */}
+      <Header/>
     <div className="max-w-lg mx-auto  bg-white shadow-lg m-auto rounded-lg p-6 sm:p-8 border border-gray-200">
     <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">Create Your Account</h2>
     {error && <div className="bg-red-100 text-red-600 p-3 mb-4 rounded-md">{error}</div>}
