@@ -5,7 +5,7 @@ import Navigation from './Navigation'
 
 const Header = () => {
   return (
-    <div className='h-34 sm: bg-red-500 px-4 py-8 lg:px-14 pb-36'>
+    <div className='h-34 sm: bg-purple-500 px-4 py-8 lg:px-14 pb-36'>
     <div className=' max-w-screen-2xl mx-auto'>
       <div className='w-full flex items-center justify-between mb-14'>
         <div className=' flex items-center lg:gap-x-16'>
