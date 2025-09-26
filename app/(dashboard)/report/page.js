@@ -1,63 +1,100 @@
 "use client";
 import { useState } from "react";
 
-export default function FileUpload() {
-  const [file, setFile] = useState(null);
+export default function ReportPage() {
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setMessage("");
 
-    if (!file) {
-      setMessage("Please select a file first!");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", file);
+    const formData = new FormData(e.target);
 
     try {
-      const res = await fetch("/api/upload", {
+      const res = await fetch("/api/report", {
         method: "POST",
         body: formData,
       });
 
       const data = await res.json();
       if (res.ok) {
-        setMessage(`Uploaded Successfully: ${data.filePath}`);
+        setMessage("✅ Report submitted successfully!");
+        e.target.reset();
       } else {
-        setMessage(`Error: ${data.error}`);
+        setMessage(`❌ ${data.error || "Failed to submit report"}`);
       }
     } catch (err) {
-      setMessage("Upload failed!");
+      console.error("Error submitting report:", err);
+      setMessage("❌ Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen flex items-center justify-center text-white">
+    <div className="min-h-screen flex items-center justify-center bg-gray-800 p-6">
       <form
         onSubmit={handleSubmit}
-        className="p-6 bg-gray-800 rounded-lg shadow-lg space-y-4"
+        className="w-full max-w-lg bg-white shadow-lg rounded-xl p-6 space-y-4"
       >
-        <h2 className="text-xl font-bold">Upload Evidence</h2>
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-          className="block w-full text-sm text-gray-400
-          file:mr-4 file:py-2 file:px-4
-          file:rounded-full file:border-0
-          file:text-sm file:font-semibold
-          file:bg-indigo-600 file:text-white
-          hover:file:bg-indigo-700
-        "
-        />
+        <h2 className="text-2xl font-bold text-gray-800 text-center">
+          Crime Report Form
+        </h2>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Title</label>
+          <input
+            type="text"
+            name="title"
+            required
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Description</label>
+          <textarea
+            name="description"
+            required
+            rows="3"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+          ></textarea>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Location</label>
+          <input
+            type="text"
+            name="location"
+            required
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Upload Evidence</label>
+          <input
+            type="file"
+            name="file"
+            accept="image/*"
+            required
+            className="w-full text-sm border rounded-lg p-2"
+          />
+        </div>
+
         <button
           type="submit"
-          className="w-full py-2 bg-indigo-600 rounded-lg hover:bg-indigo-700"
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50"
         >
-          Upload
+          {loading ? "Submitting..." : "Submit Report"}
         </button>
-        {message && <p className="text-sm mt-2">{message}</p>}
+
+        {message && (
+          <p className="text-center text-sm mt-3 font-medium">{message}</p>
+        )}
       </form>
     </div>
   );
