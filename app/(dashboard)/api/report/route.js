@@ -79,3 +79,20 @@ export async function POST(req) {
     );
   }
 }
+
+// ✅ GET all reports
+export async function GET() {
+  try {
+    await connectDB();
+
+    const reports = await reportModels.find().sort({ uploadedAt: -1 });
+
+    return NextResponse.json(reports);
+  } catch (error) {
+    console.error("❌ Error fetching reports:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch reports", details: error.message },
+      { status: 500 }
+    );
+  }
+}

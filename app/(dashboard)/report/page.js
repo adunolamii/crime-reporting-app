@@ -1,14 +1,14 @@
 "use client";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ReportPage() {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage("");
 
     const formData = new FormData(e.target);
 
@@ -20,82 +20,92 @@ export default function ReportPage() {
 
       const data = await res.json();
       if (res.ok) {
-        setMessage("✅ Report submitted successfully!");
+        toast.success("✅ Report submitted successfully!");
         e.target.reset();
       } else {
-        setMessage(`❌ ${data.error || "Failed to submit report"}`);
+        toast.error(`❌ ${data.error || "Failed to submit report"}`);
       }
     } catch (err) {
       console.error("Error submitting report:", err);
-      setMessage("❌ Something went wrong");
+      toast.error("❌ Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-800 p-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-lg bg-white shadow-lg rounded-xl p-6 space-y-4"
+        className="w-full max-w-lg bg-white shadow-2xl rounded-2xl p-8 space-y-6 border border-gray-200"
       >
-        <h2 className="text-2xl font-bold text-gray-800 text-center">
-          Crime Report Form
+        <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-4">
+          🕵️ Crime Report Form
         </h2>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Title</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Title
+          </label>
           <input
             type="text"
             name="title"
             required
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Enter crime title"
+            className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Description</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Description
+          </label>
           <textarea
             name="description"
             required
             rows="3"
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Provide detailed description"
+            className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
           ></textarea>
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Location</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Location
+          </label>
           <input
             type="text"
             name="location"
             required
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Enter crime location"
+            className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Upload Evidence</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Upload Evidence
+          </label>
           <input
             type="file"
             name="file"
             accept="image/*"
             required
-            className="w-full text-sm border rounded-lg p-2"
+            className="w-full text-sm border rounded-lg p-2 cursor-pointer file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 transition"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg font-semibold text-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 transition disabled:opacity-50"
         >
           {loading ? "Submitting..." : "Submit Report"}
         </button>
-
-        {message && (
-          <p className="text-center text-sm mt-3 font-medium">{message}</p>
-        )}
       </form>
+
+      {/* Toast Notifications */}
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </div>
   );
 }
