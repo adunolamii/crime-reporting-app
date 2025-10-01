@@ -1,83 +1,102 @@
+"use client";
 
-'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Header from '../Header';
-import Welcome from '../Welcome'
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-export default function SignIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+export default function SigninPage() {
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    const response = await fetch('/api/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        action: 'signin',
-        email,
-        password,
-      }),
-    });
+    try {
+      const res = await fetch("/api/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-    const data = await response.json();
+      const data = await res.json();
 
-    if (response.status === 200) {
-      // Store JWT token (you can store it in localStorage, sessionStorage, or a context provider)
-      localStorage.setItem('token', data.token);
-      router.push('/overview'); // Redirect to dashboard
-    } else {
-      setError(data.error || 'Something went wrong');
+      if (res.ok) {
+        toast.success("Signin successful 🎉");
+        localStorage.setItem("token", data.token); // Save JWT token
+        router.push("/userDashboard"); // Redirect to dashboard
+      } else {
+        toast.error(data.message || "Signin failed ❌");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <Header/>
-    <div className="bg-white p-8 rounded-lg shadow-lg w-full m-auto max-w-sm">
-      <h2 className="text-2xl font-semibold text-center mb-6">Sign In</h2>
-        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Email</label>
-            <input
-              type="email"
-              className="w-full p-2 mt-1 border border-gray-300 rounded-md"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              className="w-full p-2 mt-1 border border-gray-300 rounded-md"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full p-2 bg-blue-500 text-white font-semibold rounded-md hover:text-purple-600 hover:bg-black"
-          >
-            Sign In
-          </button>
-        </form>
-        <div className="mt-4 text-center">
-          <a href="/forgotPassword" className="text-blue-500 hover:underline">
-            Forgot Password?
-          </a>
+    <div className="flex justify-center items-center min-h-screen bg-gray-900 text-white">
+      <Toaster position="top-right" />
+
+      <form
+        onSubmit={handleSubmit}
+        className="bg-gray-800 p-8 rounded-lg shadow-lg w-96 space-y-6"
+      >
+        <h2 className="text-2xl font-bold text-center">Sign In</h2>
+
+        {/* Email */}
+        <div>
+          <label className="block mb-1">Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            value={form.email}
+            onChange={handleChange}
+            className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+            required
+          />
         </div>
-      </div>
+
+        {/* Password */}
+        <div>
+          <label className="block mb-1">Password</label>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Enter password"
+              value={form.password}
+              onChange={handleChange}
+              className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+              required
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-2 cursor-pointer text-gray-400"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+        </div>
+
+        {/* Button */}
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded font-semibold"
+        >
+          {loading ? "Signing in..." : "Sign In"}
+        </button>
+      </form>
     </div>
-    
   );
 }
