@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiHeart, FiShare2 } from "react-icons/fi";
 import Confetti from "react-confetti";
 import { useSwipeable } from "react-swipeable";
+import Header from "../Header";
 
 const tipsData = [
   { id: 1, category: "Home Safety", title: "Lock your doors", description: "Always lock your doors and windows before leaving home." },
@@ -87,7 +88,9 @@ export default function SafetyTips() {
   });
 
   return (
+   
     <div className="min-h-screen p-6 bg-gray-800 text-gray-100">
+       <Header/>
       {showConfetti && <Confetti numberOfPieces={100} recycle={false} />}
       <h1 className="text-4xl font-extrabold mb-8 text-center">🛡️ Safety Tips</h1>
 
@@ -148,7 +151,7 @@ export default function SafetyTips() {
                 <button onClick={() => shareTip(tips[currentSlide])}>
                   <FiShare2 className="w-6 h-6 text-gray-400 hover:text-white transition" />
                 </button>
-              </div>
+              </div>t
             </motion.div>
           )}
         </AnimatePresence>
@@ -156,3 +159,112 @@ export default function SafetyTips() {
     </div>
   );
 }
+
+// "use client";
+
+// import { useState } from "react";
+// import { useSwipeable } from "react-swipeable";
+// import Confetti from "react-confetti";
+// import { motion, AnimatePresence } from "framer-motion";
+// import { FiHeart, FiShare2 } from "react-icons/fi";
+
+// const tipsData = [
+//   {
+//     id: 1,
+//     category: "Home Safety",
+//     title: "Lock your doors",
+//     description: "Always lock your doors and windows before leaving home.",
+//   },
+//   {
+//     id: 2,
+//     category: "Online Safety",
+//     title: "Strong Passwords",
+//     description: "Use unique, strong passwords and enable 2FA.",
+//   },
+//   {
+//     id: 3,
+//     category: "Travel Safety",
+//     title: "Stay alert",
+//     description: "Keep your belongings secure when traveling.",
+//   },
+//   {
+//     id: 4,
+//     category: "Personal Safety",
+//     title: "Share your location",
+//     description: "Let trusted friends know your whereabouts.",
+//   },
+// ];
+
+// export default function SafetyTipsPage() {
+//   const [index, setIndex] = useState(0);
+//   const [celebrate, setCelebrate] = useState(false);
+
+//   // Swipe gestures
+//   const handlers = useSwipeable({
+//     onSwipedLeft: () => setIndex((i) => (i + 1) % tipsData.length),
+//     onSwipedRight: () => setIndex((i) => (i - 1 + tipsData.length) % tipsData.length),
+//     trackMouse: true,
+//   });
+
+//   // Current tip
+//   const currentTip = tipsData[index];
+
+//   return (
+//     <div className="relative min-h-screen bg-gray-800 flex flex-col items-center justify-center text-white p-6">
+//       <h1 className="text-4xl font-extrabold mb-8 text-center">🛡️ Safety Tips</h1>
+
+//       {/* Confetti celebration */}
+//       {celebrate && (
+//         <Confetti
+//           width={typeof window !== "undefined" ? window.innerWidth : 300}
+//           height={typeof window !== "undefined" ? window.innerHeight : 300}
+//           recycle={false}
+//           numberOfPieces={300}
+//         />
+//       )}
+
+//       <div
+//         {...handlers}
+//         className="w-full max-w-lg h-[350px] flex items-center justify-center"
+//       >
+//         <AnimatePresence mode="wait">
+//           <motion.div
+//             key={currentTip.id}
+//             initial={{ opacity: 0, x: 100 }}
+//             animate={{ opacity: 1, x: 0 }}
+//             exit={{ opacity: 0, x: -100 }}
+//             transition={{ duration: 0.5 }}
+//             className="p-6 bg-white text-gray-900 rounded-2xl shadow-xl w-full h-full flex flex-col justify-between"
+//           >
+//             <div>
+//               <span className="text-sm font-semibold text-indigo-600 uppercase">
+//                 {currentTip.category}
+//               </span>
+//               <h2 className="text-2xl font-bold mt-2">{currentTip.title}</h2>
+//               <p className="mt-4 text-gray-700">{currentTip.description}</p>
+//             </div>
+
+//             {/* Actions */}
+//             <div className="flex justify-between mt-6">
+//               <button
+//                 onClick={() => setCelebrate(true)}
+//                 className="flex items-center gap-2 px-4 py-2 bg-pink-600 text-white rounded-xl hover:bg-pink-700 transition"
+//               >
+//                 <FiHeart /> Like
+//               </button>
+//               <button
+//                 onClick={() => alert("Shared!")}
+//                 className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition"
+//               >
+//                 <FiShare2 /> Share
+//               </button>
+//             </div>
+//           </motion.div>
+//         </AnimatePresence>
+//       </div>
+
+//       {/* Swipe instructions */}
+//       <p className="mt-6 text-gray-300">👆 Swipe left or right to see more tips</p>
+//     </div>
+//   );
+// }

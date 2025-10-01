@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "../Header";
 
 export default function ReportPage() {
   const [loading, setLoading] = useState(false);
@@ -34,10 +35,12 @@ export default function ReportPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 p-6">
+    <div>
+      <Header/>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 ">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-lg bg-white shadow-2xl rounded-2xl p-8 space-y-6 border border-gray-200"
+        className="w-full max-w-lg bg-white shadow-2xl rounded-2xl p-8  border border-gray-200"
       >
         <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-4">
           🕵️ Crime Report Form
@@ -57,7 +60,7 @@ export default function ReportPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
+          <label className="block text-sm font-semibold text-gray-700 mbt2">
             Description
           </label>
           <textarea
@@ -98,7 +101,7 @@ export default function ReportPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg font-semibold text-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 transition disabled:opacity-50"
+          className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg shadow-lg font-semibold text-lg hover:text-purple-600 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 transition disabled:opacity-50"
         >
           {loading ? "Submitting..." : "Submit Report"}
         </button>
@@ -106,6 +109,7 @@ export default function ReportPage() {
 
       {/* Toast Notifications */}
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+    </div>
     </div>
   );
 }

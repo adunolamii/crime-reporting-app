@@ -66,7 +66,7 @@ export default function SignIn() {
           </div>
           <button
             type="submit"
-            className="w-full p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
+            className="w-full p-2 bg-blue-500 text-white font-semibold rounded-md hover:text-purple-600 hover:bg-black"
           >
             Sign In
           </button>

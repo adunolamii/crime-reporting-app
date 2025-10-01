@@ -46,13 +46,15 @@ const page = () => {
   };
   
   return (
+    
     <div>
       <Header/>
-    <div className="max-w-lg mx-auto  bg-white shadow-lg m-auto rounded-lg p-6 sm:p-8 border border-gray-200">
+      
+    <div className="max-w-lg mx-auto   bg-white shadow-lg m-auto rounded-lg p-6 sm:p-8 border border-gray-200">
     <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">Create Your Account</h2>
     {error && <div className="bg-red-100 text-red-600 p-3 mb-4 rounded-md">{error}</div>}
     <form onSubmit={handleSubmit}>
-      <div className="mb-5">
+      <div className="mb-5 ">
         <label className="block text-sm font-medium text-gray-600 mb-2">Full Name</label>
         <input
           type="text"
@@ -89,7 +91,7 @@ const page = () => {
         type="submit"
         disabled={isSubmitting}
         className={`w-full py-3 text-white font-semibold rounded-lg transition-colors ${
-          isSubmitting ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
+          isSubmitting ? 'bg-gray-400' : 'bg-blue-600 hover:text-purple-600 hover:bg-black'
         }`}
       >
         {isSubmitting ? 'Signing Up...' : 'Sign Up'}
