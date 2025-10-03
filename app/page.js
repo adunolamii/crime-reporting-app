@@ -48,6 +48,7 @@ import { assets } from "@/Assets/assets";
 
 const backgroundImages = [
   assets.fire,
+  assets.crime,
   
 ];
 
@@ -92,7 +93,7 @@ export default function LandingPage() {
 
         <div className="mt-10">
           <Image
-            src={assets.fire}
+            src={assets.crime}
             alt="Crime Awareness"
             width={600}
             height={400}
