@@ -185,6 +185,7 @@ import { toast } from "react-hot-toast";
 
 // React Icons
 import { FaWhatsapp, FaTwitter, FaFacebookF, FaCopy, FaCheck, FaShareAlt } from "react-icons/fa";
+import Header from "../Header";
 
 export default function SharePage() {
   const shareLink = "https://yourapp.com/invite/12345";
@@ -218,7 +219,9 @@ export default function SharePage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 p-6">
+    <div>
+      <Header/>
+    <div className="min-h-screen flex items-center justify-center bg-gray-800 p-6">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -292,6 +295,7 @@ export default function SharePage() {
           </button>
         </motion.div>
       </motion.div>
+    </div>
     </div>
   );
 }

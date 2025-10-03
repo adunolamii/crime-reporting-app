@@ -84,7 +84,7 @@ export default function Dashboard() {
     {
       title: "Safety Tips",
       description: "View tips for staying safe",
-      // icon: <FiLightbulb size={28} />,
+      icon: <FiTrendingUp size={28} />,
       link: "/safety",
     },
     {
@@ -111,7 +111,7 @@ export default function Dashboard() {
       </h2>
 
       {/* Feature Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-4xl">
+      <div className="grid grid-cols- sm:grid-cols-2 gap-6 w-full max-w-4xl">
         {features.map((feature, idx) => (
           <Link key={idx} href={feature.link}>
             <div className="bg-gray-800 rounded-2xl p-6 shadow hover:shadow-lg hover:bg-gray-700 transition cursor-pointer">

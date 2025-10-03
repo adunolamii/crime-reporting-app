@@ -163,20 +163,20 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-50 p-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-800 p-6">
       {/* Toast container */}
-      <Header/>
+      
       <Toaster position="top-right" reverseOrder={false} />
 
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-2xl font-bold text-center text-blue-700 mb-6">
+      <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8">
+        <h1 className="text-2xl font-bold text-center text-white mb-6">
           Create an Account
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Username */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className=" text-white block mb-1">
               Username
             </label>
             <input
@@ -185,14 +185,14 @@ export default function SignupPage() {
               value={form.username}
               onChange={handleChange}
               required
-              className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
               placeholder="Enter username"
             />
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className=" text-white block mb-1">
               Email
             </label>
             <input
@@ -201,14 +201,14 @@ export default function SignupPage() {
               value={form.email}
               onChange={handleChange}
               required
-              className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
               placeholder="Enter email"
             />
           </div>
 
           {/* Password with toggle */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="text-white block mb-1">
               Password
             </label>
             <div className="relative mt-1">
@@ -218,7 +218,7 @@ export default function SignupPage() {
                 value={form.password}
                 onChange={handleChange}
                 required
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 pr-10"
+                className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
                 placeholder="Enter password"
               />
               <button

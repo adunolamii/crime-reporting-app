@@ -38,6 +38,7 @@ export default function ReportPage() {
     <div>
       <Header/>
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 ">
+    <div className=" mb-48">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-lg bg-white shadow-2xl rounded-2xl p-8  border border-gray-200"
@@ -60,7 +61,7 @@ export default function ReportPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mbt2">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
             Description
           </label>
           <textarea
@@ -106,7 +107,7 @@ export default function ReportPage() {
           {loading ? "Submitting..." : "Submit Report"}
         </button>
       </form>
-
+        </div>
       {/* Toast Notifications */}
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </div>
